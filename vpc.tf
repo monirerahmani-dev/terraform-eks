@@ -6,7 +6,7 @@ variable vpc_cidr_block {}
 variable private_subnet_cidr_blocks {}
 variable public_subnet_cidr_blocks {}
 
-data "aws_avalability_zones" "azs" {}
+data "aws_availability_zones" "azs" {}
 
 module "myapp-vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -16,11 +16,11 @@ module "myapp-vpc" {
   cidr = var.vpc_cidr_block
   private_subnets = var.private_subnet_cidr_blocks
   public_subnets = var.public_subnet_cidr_blocks
-  azs = data.aws_avalability_zones.azs.names
+  azs = data.aws_availability_zones.azs.names
 
-  enable_net_gateway = true
-  single_net_gateway = true
-  enable_dns_hostname = true
+  enable_nat_gateway = true
+  single_nat_gateway = true
+  enable_dns_hostnames = true
 
   tags = {
     "kubernetes.io/cluster/myapp-eks-cluster" = "shared"
